@@ -23,7 +23,7 @@ jobs:
       
       run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o -tt StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} 
+          ssh -o -tt StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} /bin/bash
 
            pwd &&
            hostname
