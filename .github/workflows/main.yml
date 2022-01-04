@@ -23,7 +23,10 @@ jobs:
       
       run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} /bin/bash
+          cat <<'EOT' | ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} /bin/bash
+          echo "These commands will be run on: $( uname -a )"
+          echo "They are executed by: $( whoami )"
+          EOT
 
            pwd &&
            hostname
