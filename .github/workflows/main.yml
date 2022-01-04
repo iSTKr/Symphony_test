@@ -28,13 +28,9 @@ jobs:
           ssh -i private_key ${USER_NAME}@${HOSTNAME} "
           
           sudo docker exec -it apache2 /bin/bash
-          cd /var/www/html &&
+          hostname
+          #cd /var/www/html &&
           #sudo git checkout main &&
-          sudo git pull origin main
+          #sudo git pull origin main
           "
-          
-          #cd /git &&
-          #sudo git checkout main &&
-          #git pull origin main
-          #cp -r CV/* /var/www/html/
-          #"
+
