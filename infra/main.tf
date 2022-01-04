@@ -82,4 +82,5 @@ resource "aws_instance" "symphony_instance" {
 
 output "ec2instance" {
   value = aws_instance.symphony_instance.public_ip
+  value = aws_instance.symphony_instance.public_dns
 }
