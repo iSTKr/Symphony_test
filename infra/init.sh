@@ -22,3 +22,16 @@ echo "Configuring Docker"
 cd /git/infra
 docker build -t apache .
 docker run --name apache2 -d -p 80:80 apache
+
+echo "Downloading actions-runner"
+# Create a folder
+$ mkdir actions-runner && cd actions-runner# Download the latest runner package
+$ curl -o actions-runner-linux-x64-2.285.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.285.1/actions-runner-linux-x64-2.285.1.tar.gz# Optional: Validate the hash
+$ echo "5fd98e1009ed13783d17cc73f13ea9a55f21b45ced915ed610d00668b165d3b2  actions-runner-linux-x64-2.285.1.tar.gz" | shasum -a 256 -c# Extract the installer
+$ tar xzf ./actions-runner-linux-x64-2.285.1.tar.gz
+
+echo "Configuring actions-runner"
+# Create the runner and start the configuration experience
+$ ./config.sh --url https://github.com/iSTKr/Symphony_test --token AXB5DQ772M37V5I5SYHBAP3B2RI2K# Last step, run it!
+$ ./run.sh
+
