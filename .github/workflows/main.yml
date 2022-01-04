@@ -12,14 +12,14 @@ jobs:
       run: ls -l
       
     - name: Set env
-      run: echo "dns_env=$(cat ec2_dns_name)" >> $REMOTE_HOST
+      run: echo "dns_env=$(cat ec2_dns_name)" >> $REMOTE_HOST_ENV
     - name: test
-      run: echo ${{ env.REMOTE_HOST }}
+      run: echo ${{ env.REMOTE_HOST_ENV }}
     #- name: Deploy to my EC2 instance
      #   uses: easingthemes/ssh-deploy@v2.1.5
       #  env:
        #   SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         #  SOURCE: "./"
-         # REMOTE_HOST: ${{ $dns_env }}
+         # REMOTE_HOST: ${{ env.REMOTE_HOST_ENV }}
           #REMOTE_USER: "ubuntu"
           #TARGET: "/home/ec2-user/SampleExpressApp"      
