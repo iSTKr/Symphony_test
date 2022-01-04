@@ -80,7 +80,10 @@ resource "aws_instance" "symphony_instance" {
   user_data = "${file("init.sh")}"
 }
 
-output "ec2instance" {
+output "ec2instance_ip" {
   value = aws_instance.symphony_instance.public_ip
+}
+
+output "ec2instance_dns" {
   value = aws_instance.symphony_instance.public_dns
 }
