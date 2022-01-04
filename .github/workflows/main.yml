@@ -6,5 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: HW
-      run: echo "Hello World"
+    - name: git pull
+      uses: actions/checkout@v1
+    - name: list files
+      run: ls -l
