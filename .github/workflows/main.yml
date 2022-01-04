@@ -28,6 +28,6 @@ jobs:
           ssh -i private_key ${USER_NAME}@${HOSTNAME} "
           
           cd /git &&
-          git checkout main &&
-          git pull origin main
+          sudo git checkout main &&
+          sudo git pull origin main
           "
