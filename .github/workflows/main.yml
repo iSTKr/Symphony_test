@@ -12,9 +12,9 @@ jobs:
       run: ls -l
       
     - name: Set env
-      run: echo "dns_env=$(cat ec2_dns_name)" >> $GITHUB_ENV
+      run: echo "dns_env=$(cat ec2_dns_name)" >> $REMOTE_HOST
     - name: test
-      run: echo ${{ $dns_env }}
+      run: echo ${{ env.REMOTE_HOST }}
     #- name: Deploy to my EC2 instance
      #   uses: easingthemes/ssh-deploy@v2.1.5
       #  env:
