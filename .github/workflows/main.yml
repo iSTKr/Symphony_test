@@ -24,11 +24,17 @@ jobs:
       run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-          
+  
           ssh -i private_key ${USER_NAME}@${HOSTNAME} "
+          
           sudo docker exec -it apache2 /bin/bash
           #cd /git &&
           #sudo git checkout main &&
-          git pull origin main
-          cp -r CV/* /var/www/html/
+          sudo git pull origin main
           "
+          
+          #cd /git &&
+          #sudo git checkout main &&
+          #git pull origin main
+          #cp -r CV/* /var/www/html/
+          #"
