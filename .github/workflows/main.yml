@@ -12,7 +12,7 @@ jobs:
       run: ls -l
       
     - name: Set env
-      run: cat ec2_dns_name >> $GITHUB_ENV
+      run: echo "REMOTE_HOST=$(cat ec2_dns_name)" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.GITHUB_ENV }}
     #- name: Deploy to my EC2 instance
