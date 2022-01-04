@@ -6,20 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: git pull
-      uses: actions/checkout@v1
-    - name: list files
-      run: ls -l
-      
+    - name: Git pull
+      uses: actions/checkout@v2
     - name: Set env
-      run: echo "REMOTE_HOST=$(cat ec2_dns_name)" >> $GITHUB_ENV
-    - name: test
-      run: echo ${{ env.REMOTE_HOST }}
-    - name: ssh deploy
-      uses: easingthemes/ssh-deploy@v2.2.11
-      with:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SOURCE: "./"
-          #REMOTE_HOST: ${{ env.REMOTE_HOST }}
-          REMOTE_USER: "ubuntu"
-          TARGET: "/git"      
+      run: echo "HOSTNAME=$(cat ec2_dns_name)" >> $GITHUB_ENV
+    - name: Test hostname
+      run: echo ${{ env.HOSTNAME }}
+      
+    - uses: actions/checkout@v2 
+    - name: Deploy in EC2
+    env:
+            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+            HOSTNAME : ${{ secrets.HOSTNAME }}
+            USER_NAME : ${{ secrets.USER_NAME }}
+    
