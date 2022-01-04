@@ -1,6 +1,6 @@
 name: Push-to-EC2
 
-on: push
+#on:
 
 jobs:
 deploy:
