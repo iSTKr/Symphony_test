@@ -1,6 +1,6 @@
 name: Push-to-EC2
 
-#on:
+#on: push
 
 jobs:
 deploy:
@@ -14,8 +14,8 @@ steps:
         - name: Deploy to my EC2 instance
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
-                                                                                           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-                                                                                           SOURCE: "./"
-                                                                                           REMOTE_HOST: "ec2-34-213-48-149.us-west-2.compute.amazonaws.com"
-                                                                                           REMOTE_USER: "ubuntu"
-                                                                                           TARGET: "/git"
+                SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+                SOURCE: "./"
+                REMOTE_HOST: "ec2-34-213-48-149.us-west-2.compute.amazonaws.com"
+                REMOTE_USER: "ubuntu"
+                TARGET: "/git"
