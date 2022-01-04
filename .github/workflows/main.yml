@@ -15,9 +15,9 @@ jobs:
       run: echo "REMOTE_HOST=$(cat ec2_dns_name)" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.REMOTE_HOST }}
-    - name: Deploy to my EC2 instance
-        uses: easingthemes/ssh-deploy@v2.2.11
-        env:
+    - name: ssh deploy
+      uses: easingthemes/ssh-deploy@v2.2.11
+      with:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           SOURCE: "./"
           #REMOTE_HOST: ${{ env.REMOTE_HOST }}
