@@ -14,11 +14,18 @@ jobs:
 #      run: echo ${{ env.HOSTNAME }}
       
     
-    - name: Deploy in EC2
-      uses: actions/checkout@v2     
+    - uses: actions/checkout@v2
+    - name: Deploy in EC2  
       env:
         PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         HOSTNAME : ${{ env.HOSTNAME }}
         USER_NAME : ${{ secrets.USER_NAME }}  
       
+      run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          
+          cd /git &&
+          git checkout main &&
+          git pull origin main
          
