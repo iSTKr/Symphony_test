@@ -21,4 +21,4 @@ docker --version
 echo "Configuring Docker"
 cd /git/infra
 docker build -t apache .
-docker run -v /git/main/CV:/git -d -p 80:80 apache
+docker run -d -p 80:80 apache2
