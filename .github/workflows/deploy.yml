@@ -2,7 +2,7 @@ name: Deploy site
 on: workflow_dispatch
 
 jobs:
-  terraform_destroy:
+  terraform_deploy:
     runs-on: ubuntu-latest
     
     steps:
