@@ -35,6 +35,8 @@ jobs:
       with:
         # Github Token with commit access
         github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+        force-add: true
+        force-push: true
         
     - name: Terraform destroy
       env:
