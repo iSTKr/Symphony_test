@@ -17,12 +17,12 @@ body{
 
 .footer{
     color: black;
-    background-color: #b9b99b9;
+    background-color: #b9b9b9;
     height: 70px;
     padding-left: 25px;
-    border-color: #FFDEAD;
-    border-style: outset;
-    border-width: 4px;
+    #border-color: #FFDEAD;
+    #border-style: outset;
+    #border-width: 4px;
     text-align: center;
     font-size: 26px;
 }
