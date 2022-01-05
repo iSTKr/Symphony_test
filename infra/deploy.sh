@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo terraform init
 sudo terraform apply
 sudo terraform output ec2instance_dns > ec2_dns_name
 #sudo cp ec2_dns_name home/stk/symphony_test/git/main/infra/ec2_dns_name
