@@ -1,0 +1,14 @@
+name: Deploy site
+on: workflow_dispatch
+
+jobs:
+  terraform_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Git pull
+      uses: actions/checkout@v2
+    - name: Test
+      run: pwd && ls
+    #- name: Terraform deploy
+    #  run: ./deploy.sh
