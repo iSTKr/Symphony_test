@@ -9,6 +9,6 @@ jobs:
     - name: Git pull
       uses: actions/checkout@v2
     - name: Test
-      run: cd /home/runner && pwd && ls && cd /home/runner/work && pwd && ls
+      run: infra/deploy.sh
     #- name: Terraform deploy
     #  run: ./deploy.sh
