@@ -14,7 +14,7 @@ variable "awsprops" {
 
 provider "aws" {
   region = lookup(var.awsprops, "region")
-  shared_credentials_file = "/home/stk/.aws/credentials"
+  
   
 }
 
