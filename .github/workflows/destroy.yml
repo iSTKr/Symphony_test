@@ -15,5 +15,6 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: |
         cd infra
-        terraform init
-        terraform destroy -auto-approve
+        ls
+        #terraform init
+        #terraform destroy -auto-approve
