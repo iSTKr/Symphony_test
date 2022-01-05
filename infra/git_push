@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Add comment:"
+read comment
+
+cd /home/stk/symphony_test/git/main
+sudo git add .
+sudo git commit -m "$comment" -a
+sudo git push origin main
+
+sudo cp /home/stk/symphony_test/git/main/infra/* /home/stk/symphony_test/terraform/
+echo "Copied successfully"
+
+
