@@ -15,7 +15,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: |
         cd infra 
-        terrafrom init -input=false
+        terraform init -input=false
       
     - name: Terraform apply
       env:
