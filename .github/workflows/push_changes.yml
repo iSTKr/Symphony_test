@@ -1,5 +1,8 @@
 name: Push code change to EC2
-on: [push]
+on: 
+  push:
+    paths:
+      - 'CV/**'
 
 jobs:
   push:
