@@ -12,6 +12,7 @@ jobs:
     - name: Set ENV
       run: |
         cd infra
+        terraform init
         echo "IP_ADDR=$(terraform output ec2instance_ip | tr -d \")" >> $GITHUB_ENV
       
     - name: Change NS record
