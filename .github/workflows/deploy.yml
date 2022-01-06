@@ -28,8 +28,8 @@ jobs:
     - name: Write hostname
       run: |
         cd infra
-        terraform output ec2instance_dns > ec2_dns_name
-        cat ec2_dns_name
+        terraform output ec2instance_dns > infra/ec2_dns_name
+        cat infra/ec2_dns_name
     
     - name: Push changes
       # You may pin to the exact commit or the version.
