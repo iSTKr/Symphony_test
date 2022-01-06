@@ -1,5 +1,8 @@
+name: Test_name
+on: workflow_dispatch
+
 jobs:
-  terraform_deploy:
+  test:
     runs-on: ubuntu-latest
     
     steps:
