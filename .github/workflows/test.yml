@@ -20,7 +20,7 @@ jobs:
     - name: Write hostname to file
       run: |
         cd infra
-        terraform output ec2instance_ip | tr -d \")" > /home/runner/work/Symphony_test/Symphony_test/ec2_ip
+        terraform output ec2instance_ip | tr -d \" > /home/runner/work/Symphony_test/Symphony_test/ec2_ip
         cat /home/runner/work/Symphony_test/Symphony_test/ec2_ip
         
         
