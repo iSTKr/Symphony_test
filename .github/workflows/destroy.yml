@@ -16,4 +16,5 @@ jobs:
       run: |
         cd infra
         ls -la
+        terraform init
         terraform destroy -auto-approve
