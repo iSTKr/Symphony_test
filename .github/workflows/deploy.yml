@@ -27,6 +27,7 @@ jobs:
         
     - name: Write hostname
       run: |
+        cd infra
         terraform output ec2instance_dns > ec2_dns_name
         cat ec2_dns_name
     
