@@ -9,8 +9,7 @@ variable "awsprops" {
     publicip = true
     keyname = "Symphony"
     secgroupname = "Symphony"
-    init_file = "${file("/home/runner/work/Symphony_test/Symphony_test/infra/init.sh")}"
-  }
+   }
 }
 
 provider "aws" {
@@ -74,7 +73,7 @@ resource "aws_instance" "symphony_instance" {
   }
 
   depends_on = [ aws_security_group.symphony ]
-  user_data = lookup(var.awsprops, "init_file")
+  user_data = ${file("/home/runner/work/Symphony_test/Symphony_test/infra/init.sh")}
 }
 
 output "ec2instance_ip" {
