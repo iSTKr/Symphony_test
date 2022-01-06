@@ -25,13 +25,10 @@ jobs:
         cd infra 
         terraform apply -auto-approve -input=false
         
-    - name: Write hostname and IP into file
+    - name: Set IP ENV
       run: |
         cd infra
-        terraform output ec2instance_ip | tr -d \" > /home/runner/work/Symphony_test/Symphony_test/ec2_ip
-        
-    - name: Set ENV
-      run: echo "IP_ADDR=$(cat /home/runner/work/Symphony_test/Symphony_test/ec2_ip)" >> $GITHUB_ENV
+        echo "IP_ADDR=$(terraform output ec2instance_ip | tr -d \")" >> $GITHUB_ENV
         
     - name: Change NS record
       run: curl -u iSTKr:${{ secrets.DNS_PROVIDER_PASS }} "http://api.geoscaling.com/dns2/dynamic/?host=didenkoantoncv.pp.ua&content=$IP_ADDR"
