@@ -6,5 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Git pull
+      uses: actions/checkout@v2
+      
     - name: Change NS record
-      run: curl -u iSTKr:${{ secrets.DNS_PROVIDER_PASS }} "http://api.geoscaling.com/dns2/dynamic/?host=didenkoantoncv.pp.ua&content=2.2.2.2"
+      run: |
+        echo "IP_ADDR=$(cat /home/runner/work/Symphony_test/Symphony_test/ec2_ip)" >> $GITHUB_ENV
+        echo $IP_ADDR
+        #curl -u iSTKr:${{ secrets.DNS_PROVIDER_PASS }} "http://api.geoscaling.com/dns2/dynamic/?host=didenkoantoncv.pp.ua&content=$IP_ADDR"
