@@ -6,37 +6,5 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Git pull
-      uses: actions/checkout@v2
-      
-    - name: Terraform init
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: |
-        cd infra 
-        terraform init -input=false
-        
-    - name: Write hostname to file
-      run: |
-        cd infra
-        terraform output ec2instance_ip | tr -d \" > /home/runner/work/Symphony_test/Symphony_test/ec2_ip
-        cat /home/runner/work/Symphony_test/Symphony_test/ec2_ip
-        
-        
-    - name: Push changes
-      # You may pin to the exact commit or the version.
-      # uses: actions-go/push@7ad7ce209f2a038e7bca929b7a4c92026363f856
-      uses: actions-go/push@v1
-      with:
-        # A coma separated list of files to add to commit in addition to already staged ones. If not provided, all tracked files are committed.
-        #commit-files: 
-        # The commit message used when changes needs to be committed
-        commit-message: "Push after deploy EC2"
-        author-email: didenko.anton.v@gmail.com
-        author-name: Automation 
-        fail-if-empty: true
-        # Auth token used to fetch the repository. The token is stored in the local git config, which enables your scripts to run authenticated git commands. 
-        #The post-job step removes the token from the git config. [Learn more about creating and using encrypted secrets]
-        #(https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
-        token: ${{ secrets.MY_GITHUB_TOKEN }}   
+    - name: Change NS record
+      run: curl -u iSTKr:${{ secrets.DNS_PROVIDER_PASS }} "http://api.geoscaling.com/dns2/dynamic/?host=didenkoantoncv.pp.ua&content=2.2.2.2"
