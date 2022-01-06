@@ -36,6 +36,9 @@ jobs:
         
     - name: Change NS record
       run: curl -u iSTKr:${{ secrets.DNS_PROVIDER_PASS }} "http://api.geoscaling.com/dns2/dynamic/?host=didenkoantoncv.pp.ua&content=$IP_ADDR"
+      
+    - name: Wait for deploy
+      run: sleep 60
           
     - name: Push changes
       # You may pin to the exact commit or the version.
