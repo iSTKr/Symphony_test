@@ -25,6 +25,11 @@ jobs:
         cd infra 
         terraform apply -auto-approve -input=false
         
+    - name: Write hostname
+      run: |
+        terraform output ec2instance_dns > ec2_dns_name
+        cat ec2_dns_name
+    
     - name: Push changes
       # You may pin to the exact commit or the version.
       # uses: actions-go/push@7ad7ce209f2a038e7bca929b7a4c92026363f856
