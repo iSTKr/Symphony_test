@@ -20,6 +20,12 @@ body{
     width: 30em;
 }
 
+.header h4 {
+	margin-left: auto;
+    margin-right: auto;
+    width: 60em;
+}
+
 .header p {
 	margin-left: auto;
     margin-right: auto;
