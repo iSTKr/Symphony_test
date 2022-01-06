@@ -1,5 +1,0 @@
-#!/bin/bash
-
-cd /home/stk/symphony_test/git/main
-sudo git pull origin main
-
