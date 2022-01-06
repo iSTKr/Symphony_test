@@ -1,0 +1,39 @@
+jobs:
+  terraform_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Git pull
+      uses: actions/checkout@v2
+      
+    - name: Terraform init
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: |
+        cd infra 
+        terraform init -input=false
+        
+    - name: Write hostname to file
+      run: |
+        cd infra
+        run: echo "HOSTNAME=$(cat ec2_dns_name | tr -d \")" >> $GITHUB_ENV
+        terraform output ec2instance_ip > /home/runner/work/Symphony_test/Symphony_test/ec2_ip
+        cd /home/runner/work/Symphony_test/Symphony_test
+        run: echo $HOSTNAME >> README
+        
+    - name: Push to EC2  
+      env:
+        PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        HOSTNAME : ${{ env.HOSTNAME }}
+        USER_NAME : ${{ secrets.USER_NAME }}  
+      
+      run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+  
+          ssh -i private_key ${USER_NAME}@${HOSTNAME} "
+          
+          sudo docker exec -i apache2 git pull origin main
+          sudo docker exec -i apache2 sh -c 'cp /var/www/html/CV/* /var/www/html/'
+          "
