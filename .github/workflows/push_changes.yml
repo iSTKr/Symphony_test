@@ -23,5 +23,5 @@ jobs:
           ssh -i private_key ${USER_NAME}@${HOSTNAME} "
           
           sudo docker exec -i apache2 git pull origin main
-          sudo docker exec -i apache2 sh -c 'cp -r /var/www/html/CV/* /var/www/html/'
+          sudo docker exec -i apache2 sh -c 'cp /var/www/html/CV/* /var/www/html/'
           "
