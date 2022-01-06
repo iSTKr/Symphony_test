@@ -20,7 +20,7 @@ jobs:
     - name: Write hostname to file
       run: |
         cd infra
-        run: echo "HOSTNAME=$(cat ec2_dns_name | tr -d \")" >> $GITHUB_ENV
+        echo "HOSTNAME=$(cat ec2_dns_name | tr -d \")" >> $GITHUB_ENV
         terraform output ec2instance_ip > /home/runner/work/Symphony_test/Symphony_test/ec2_ip
         cd /home/runner/work/Symphony_test/Symphony_test
         run: echo $HOSTNAME >> README
