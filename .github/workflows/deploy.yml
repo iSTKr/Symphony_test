@@ -25,10 +25,11 @@ jobs:
         cd infra 
         terraform apply -auto-approve -input=false
         
-    - name: Write hostname
+    - name: Write hostname to file
       run: |
         cd infra
         terraform output ec2instance_dns > ec2_dns_name
+        terraform output ec2instance_ip > ec2_ip
     
     - name: Push changes
       # You may pin to the exact commit or the version.
@@ -40,7 +41,7 @@ jobs:
         # The commit message used when changes needs to be committed
         commit-message: "Push after deploy EC2"
         author-email: didenko.anton.v@gmail.com
-        author-name: Autimation 
+        author-name: Automation 
         fail-if-empty: true
         # Auth token used to fetch the repository. The token is stored in the local git config, which enables your scripts to run authenticated git commands. 
         #The post-job step removes the token from the git config. [Learn more about creating and using encrypted secrets]
