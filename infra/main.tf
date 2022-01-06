@@ -9,13 +9,12 @@ variable "awsprops" {
     publicip = true
     keyname = "Symphony"
     secgroupname = "Symphony"
+    init_file = "${file("/home/runner/work/Symphony_test/Symphony_test/infra/init.sh")}"
   }
 }
 
 provider "aws" {
   region = lookup(var.awsprops, "region")
-  
-  
 }
 
 resource "aws_security_group" "symphony" {
@@ -51,11 +50,10 @@ resource "aws_security_group" "symphony" {
   }
 }
 
-
 resource "aws_instance" "symphony_instance" {
   ami = lookup(var.awsprops, "ami")
   instance_type = lookup(var.awsprops, "itype")
-  subnet_id = lookup(var.awsprops, "subnet") #FFXsubnet2
+  subnet_id = lookup(var.awsprops, "subnet")
   associate_public_ip_address = lookup(var.awsprops, "publicip")
   key_name = lookup(var.awsprops, "keyname")
 
@@ -71,13 +69,12 @@ resource "aws_instance" "symphony_instance" {
   }
   tags = {
     Name ="SERVER"
-    Environment = "DEV"
     OS = "UBUNTU"
     Managed = "SYMPHONY"
   }
 
   depends_on = [ aws_security_group.symphony ]
-  user_data = "${file("/home/runner/work/Symphony_test/Symphony_test/infra/init.sh")}"
+  user_data = lookup(var.awsprops, "init_file")
 }
 
 output "ec2instance_ip" {
