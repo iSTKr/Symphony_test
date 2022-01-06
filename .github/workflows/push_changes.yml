@@ -9,7 +9,7 @@ jobs:
     - name: Git pull
       uses: actions/checkout@v2
     - name: Set env
-      run: echo "HOSTNAME=$(cat infra/ec2_dns_name | tr -d \")" >> $GITHUB_ENV
+      run: echo "HOSTNAME=$(cat infra/ec2_dns_name)" >> $GITHUB_ENV
     - name: Push to EC2  
       env:
         PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
