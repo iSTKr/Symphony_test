@@ -28,7 +28,6 @@ jobs:
     - name: Write hostname and IP into file
       run: |
         cd infra
-        terraform output ec2instance_dns | tr -d \" > ec2_dns_name
         terraform output ec2instance_ip | tr -d \" > /home/runner/work/Symphony_test/Symphony_test/ec2_ip
         
     - name: Set ENV
