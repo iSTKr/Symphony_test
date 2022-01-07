@@ -10,7 +10,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Check HTTP 200 ok
-      run: echo "HTTP_CODE=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "didenkoantoncv.pp.ua")" >> $GITHUB_ENV
+      run: echo "HTTP_CODE=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "didenkoantoncv.p.ua")" >> $GITHUB_ENV
       
     - name: If HTTP 200 ok
       if: ${{ env.HTTP_CODE == 200}}
