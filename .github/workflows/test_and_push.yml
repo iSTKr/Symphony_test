@@ -5,14 +5,26 @@ on:
       - 'CV/**'
 
 jobs:
-  push:
+  test_and_push:
     runs-on: ubuntu-latest
     
     steps:
     - name: Git pull
       uses: actions/checkout@v2
+      
+    - name: Check HTTP 200 ok
+      run: echo "HTTP_CODE=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "didenkoantoncv.pp.ua")" >> $GITHUB_ENV
+      
+    - name: Check HTML ok
+      uses: chabad360/htmlproofer@master
+      with:
+        directory: "/home/runner/work/Symphony_test/Symphony_test/CV"
+        # The directory to scan
+        arguments: --allow-missing-href
+        # The arguments to pass to HTMLProofer
 
-    - name: Push to EC2  
+    - name: Push to container
+      if: ${{ env.HTTP_CODE == 200 && success()}}
       env:
         PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         HOSTNAME : didenkoantoncv.pp.ua
