@@ -27,3 +27,4 @@ jobs:
           
           sudo docker exec -i apache2 git pull origin main
           sudo docker exec -i apache2 sh -c 'cp /var/www/html/CV/* /var/www/html/'
+          "
