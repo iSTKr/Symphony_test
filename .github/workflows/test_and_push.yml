@@ -23,7 +23,7 @@ jobs:
         arguments: --allow-missing-href
         # The arguments to pass to HTMLProofer
 
-    - name: Push to container
+    - name: Pull to container
       if: ${{ env.HTTP_CODE == 200 && success()}}
       env:
         PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
