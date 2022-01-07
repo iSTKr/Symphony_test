@@ -12,27 +12,14 @@ jobs:
     - name: Check HTTP 200 ok
       run: echo "HTTP_CODE=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "didenkoantoncv.pp.ua")" >> $GITHUB_ENV
       
-    - name: Check HTML
+    - name: Check HTML ok
       uses: chabad360/htmlproofer@master
       with:
         directory: "/home/runner/work/Symphony_test/Symphony_test/CV"
         # The directory to scan
         arguments: --allow-missing-href
         # The arguments to pass to HTMLProofer
-      
-    - name: If HTTP 200 ok
-      if: ${{ env.HTTP_CODE == 200}}
-      env:
-        PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        HOSTNAME : didenkoantoncv.pp.ua
-        USER_NAME : ${{ secrets.USER_NAME }}  
-      
-      run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-  
-          ssh -i private_key ${USER_NAME}@${HOSTNAME} "
-          
-          sudo docker exec -i apache2 git pull origin main
-          sudo docker exec -i apache2 sh -c 'cp /var/www/html/CV/* /var/www/html/'
-          "
+
+    - name: Push to container
+      if: ${{ env.HTTP_CODE == 200 && success()}}
+      run: echo "success"
