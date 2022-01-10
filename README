@@ -44,3 +44,5 @@ If both tests are passed, site code is updating using ssh and git pull inside th
 The destroy.yml workflow is used for destroying the infra described above. It makes terraform destroy using .tfstate files from the repo, so you don't need to make it by hands.
 
 Also, I registered a domain name didenkoantoncv.pp.ua and connected it to EC2 IP using GeoScaling DNS. Every new iteration of deploying EC2 instance has dynamic IP, so I configured automatic IP change via GeoScaling API. It described in deploy.yml workflow.
+
+URL is http://didenkoantoncv.pp.ua
