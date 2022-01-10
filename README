@@ -1,8 +1,6 @@
 Привет.
 
 Это мой первый CI/CD деплой приложения, который я сделал как тестовое задание для Symphony Solutions.
-Сначала всё запускалось вручную с моей локальной виртуалки, где были все конфиги, но потом я перенес это в GitHub Actions. 
-Как же это работает?
 
 - Воркфлоу deploy производит checkout гит-репозитория, берет конфиг терраформа main.tf и создает AWS EC2 инстанс в указанном регионе из определенного AMI образа. Также он создает volume и secgroup для открытия портов 80 и 22 на инстансе.
 
@@ -12,10 +10,35 @@
 
 - После этого воркфлоу deploy пушит все изменения обратно в репозиторий, что бы обеспечить терраформ файлами .tfstate для возможности дестроя всей инфраструктуры с помощью воркфлоу destroy.
 
-- Воркфлоу push_changes срабатывает только на push в папку с кодом сайта. Сначала проверяется доступность сайта по DNS имени (код 200), после проверяется обновленный HTML код. После происходит подключение к инстансу EC2 для того, что бы сделать checkout и обновить код сайта. Подключение происходит по ssh, далее с помощью docker exec команды git pull и cp передаются в контейнер.
+- Воркфлоу test_and_push срабатывает только на push в папку с кодом сайта. Сначала проверяется доступность сайта по DNS имени (код 200), после проверяется обновленный HTML код. После происходит подключение к инстансу EC2 для того, что бы сделать checkout и обновить код сайта. Подключение происходит по ssh, далее с помощью docker exec команды git pull и cp передаются в контейнер.
 
 - Воркфлоу destroy позволяет сделать terraform destroy и удалить всё созданное выше в 2 клика. Это реализовано благодаря чекауту .tfstate файлов в новый раннер, запускается вручную.
 
 - Так как при создании инстанса каждый раз генерируется новый IP адрес, воркфлоу deploy передает адрес в команду wget, что бы с помощью API сервиса провайдера DNS изменить IP в A записи для актуализации DNS имени сайта.
 
 Сайт доступен по постоянному адресу http://didenkoantoncv.pp.ua/
+
+
+
+Hello.
+This is my first CI / CD deployment of the application, which I did as a test case for Symphony Solutions.
+
+Here you can see 3 workflows — deploy, destroy, and test_and_push. They are used to automate deploying, destroying and updating the site code.
+Also, there are Terraform, Docker and Bash config files in the infra/ directory. They contains all the infra definition code. 
+
+Firts step: creating AWS EC2 instance using main.tf Terraform config. There are parameters of ami image, type of instance, subnet, security group, volume, user_data config, etc. Security group is used to open ports 22 and 80 on the EC2 istance. 
+
+After the instance is deployed, init.sh Bash config is used to install and configure GIT and Docker on the instance. Then git repository checkouts using git pull to retrieve Dockerfile, so the specific Docker image can be created. 
+
+Next step: screating Docker image based on ubuntu/apache2 image and installing and configuring GIT there to retrieve site code from the repo. Then site code is copying to the /var/www/html derectory, port 80 opens and apache2 service is starting.
+
+This is last step in the deploy.yml workflow. After it terraform .tfstate files are pushing back to repository, so destroy.yml workflow can use it to destroy all the infra by 2 clicks.
+
+The workflow called test_and_push is used to make some tests and update site code inside the container automatically after push to the repo.
+The tests are check for HTTP 200 ok answer from the server and HTML code test from Actions marketplace.
+
+If both tests are passed, site code is updating using ssh and git pull inside the docker container, that runs apache HTTP server.
+
+The destroy.yml workflow is used for destroying the infra described above. It makes terraform destroy using .tfstate files from the repo, so you don't need to make it by hands.
+
+Also, I registered a domain name didenkoantoncv.pp.ua and connected it to EC2 IP using GeoScaling DNS. Every new iteration of deploying EC2 instance has dynamic IP, so I configured automatic IP change via GeoScaling API. It described in deploy.yml workflow.
